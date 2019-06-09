@@ -1,5 +1,12 @@
 var TIMEOUT_IN_SECS = 3 * 60
 var TEMPLATE = '<h1><span class="js-timer-minutes">00</span>:<span class="js-timer-seconds">00</span></h1>'
+var NOTIFACATION = [
+  "Не останавливайся на достигнутом",
+  "Так держать",
+  "Вперед и только вперед",
+  "Чтобы дойти до цели, надо идти",
+  "Пока у тебя есть попытка - ты не проиграл"
+]
 
 function padZero(number){
   return ("00" + String(number)).slice(-2);
@@ -91,6 +98,14 @@ function main(){
   function handleIntervalTick(){
     var secsLeft = timer.calculateSecsLeft()
     timerWiget.update(secsLeft)
+    if (secsLeft = 0){
+
+    }
+  }
+
+  function handleRandomNotification(){
+    randomIndex = Math.floor(Math.random() * NOTIFACATION.length)
+    window.alert(NOTIFACATION[randomIndex])
   }
 
   function handleVisibilityChange(){
@@ -100,7 +115,8 @@ function main(){
       intervalId = null
     } else {
       timer.start()
-      intervalId = intervalId || setInterval(handleIntervalTick, 300)
+      handleRandomNotification()
+      intervalId = intervalId || setInterval(handleIntervalTick, 1000)
     }
   }
 
