@@ -1,7 +1,8 @@
 var TIMEOUT_IN_SECS = 3 * 60
 var TEMPLATE = '<h1 style="margin:0;"><span class="js-timer-minutes">00</span>:<span class="js-timer-seconds">00</span></h1>'
-var TIMEOUT_NOTIFACATION = 30
-var NOTIFACATIONS = [
+var TIMER_STYLE = "display:block;padding: 5px;z-index:999;position:fixed;top: 20px;left:20px;background: #fff;border: 1px solid #000;"
+var TIMEOUT_NOTIFICATION = 30
+var NOTIFICATIONS = [
   "Если вы на самом деле хотите что-то сделать, то вы найдете решение. Если вы не очень-то и хотите, то найдете оправдание",
   "Сделай шаг, и дорога появится сама собой",
   "Лучше маленькое дело, чем большой план без действия",
@@ -68,7 +69,7 @@ class TimerWidget{
     // adds HTML tag to current page
     this.timerContainer = document.createElement('div')
 
-    this.timerContainer.setAttribute("style", "display:block;padding: 5px;z-index:999;position:fixed;top: 20px;left:20px;background: #fff;border: 1px solid #000;")
+    this.timerContainer.setAttribute("style", TIMER_STYLE)
     this.timerContainer.innerHTML = TEMPLATE
 
     rootTag.insertBefore(this.timerContainer, rootTag.firstChild)
@@ -101,8 +102,8 @@ function main(){
   timerWiget.mount(document.body)
 
   function handleRandomNotification(){
-    randomIndex = Math.floor(Math.random() * NOTIFACATIONS.length)
-    window.alert(NOTIFACATIONS[randomIndex])
+    randomIndex = Math.floor(Math.random() * NOTIFICATIONS.length)
+    window.alert(NOTIFICATIONS[randomIndex])
   }
 
   function handleIntervalTick(){
@@ -110,7 +111,7 @@ function main(){
     timerWiget.update(secsLeft)
     if (secsLeft <= 0){
       handleRandomNotification()
-      timer.reset(TIMEOUT_NOTIFACATION)
+      timer.reset(TIMEOUT_NOTIFICATION)
       timer.start()
     }
   }
